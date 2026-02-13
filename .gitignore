@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+pnpm-debug.log*
+
+# Build
+dist/
+*.js.map
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads (user data)
+uploads/*
+!uploads/.gitkeep
+
+# Test
+coverage/
+
+# Agent toolkit
+.agent/
+.agents/
+
+# Misc
+*.log
+test-*.js
+test-*.json
