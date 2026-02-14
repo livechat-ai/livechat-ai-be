@@ -3,11 +3,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install pnpm
+# Enable pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Install dependencies
-COPY package.json pnpm-lock.yaml ./
+COPY pnpm-lock.yaml package.json ./
 RUN pnpm install --frozen-lockfile
 
 # Build
@@ -21,16 +21,19 @@ WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+# Copy only production dependencies and build output
+COPY pnpm-lock.yaml package.json ./
+RUN pnpm install --prod --frozen-lockfile
 
-# Copy build output
 COPY --from=builder /app/dist ./dist
+# Copy .env if not using docker secrets/env vars externally which is better, but for simplicity:
+# COPY --from=builder /app/.env ./.env 
 
 # Create uploads directory
-RUN mkdir -p /app/uploads
+RUN mkdir -p /app/uploads && chown -R node:node /app/uploads
 
-EXPOSE 3300
+EXPOSE 3310
+
+USER node
 
 CMD ["node", "dist/main"]
