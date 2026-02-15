@@ -25,7 +25,7 @@ graph TD
     
     B -->|Text Extraction| B1[PDF/DOCX/TXT]
     C -->|Chunking| C1[500 chars/chunk + 20% overlap]
-    D -->|Gemini Embedding| D1[3072-dim vectors]
+    D -->|Google Embedding| D1[768-dim vectors]
     E -->|Qdrant| E1[Vector Search Index]
     F -->|Metadata| F1[Document + Chunks]
     
@@ -87,8 +87,8 @@ graph TD
 
 **Nhiệm vụ**: Chuyển đổi text chunks thành vector embeddings
 
-**Model**: Google Gemini `gemini-embedding-001`  
-**Dimension**: 3072 chiều
+**Model**: Google `text-embedding-004`  
+**Dimension**: 768 chiều
 
 **Tối ưu**:
 - Batch processing: 100 chunks/batch
@@ -115,7 +115,7 @@ graph TD
 ```typescript
 {
   vectors: {
-    size: 3072,
+    size: 768,
     distance: 'Cosine'
   }
 }
@@ -183,7 +183,7 @@ graph TD
     D --> E[LlmService]
     E --> F[Response + Confidence]
     
-    B -->|Query Embedding| B1[3072-dim vector]
+    B -->|Query Embedding| B1[768-dim vector]
     C -->|Vector Search| C1[Top-K similar chunks]
     D -->|Build Prompt| D1[System + Context + History]
     E -->|Gemini 2.5 Flash| E1[Chat Completion]

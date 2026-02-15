@@ -34,7 +34,7 @@ export class VectorDbService implements OnModuleInit {
             if (!exists) {
                 await this.client.createCollection(this.collectionName, {
                     vectors: {
-                        size: 3072, // Gemini gemini-embedding-001 output dimension
+                        size: 768, // Google text-embedding-004 output dimension
                         distance: 'Cosine',
                     },
                 });
