@@ -111,38 +111,28 @@ docker-compose up -d --build
 
 ## 📚 API Documentation
 
-### Authentication
-Tất cả request cần có header:
-`Authorization: Bearer <API_KEY>`
+Để xem chi tiết đầy đủ về API endpoints, request/response schemas, examples, và best practices, vui lòng tham khảo:
 
-### 1. Chat API
-`POST /api/chat`
+📖 **[API Documentation](./API_DOCS.md)**
 
-Gửi tin nhắn và nhận phản hồi từ AI.
+### Quick Reference
 
-**Body:**
-```json
-{
-  "message": "Làm sao để đăng ký tài khoản?",
-  "tenantSlug": "tenant-id",
-  "conversationId": "conv-123",
-  "metadata": { "customerId": "cust-001" }
-}
+**Base URL**: `http://localhost:3310/api`
+
+**Authentication**: Tất cả endpoints (trừ health check) yêu cầu API Key header:
+```
+Authorization: Bearer YOUR_API_KEY
 ```
 
-### 2. Knowledge Management
-`POST /api/knowledge/documents`
+**Main Endpoints**:
+- `GET /health` - Health check
+- `POST /chat` - AI chat processing
+- `POST /knowledge/documents` - Upload knowledge documents
+- `GET /knowledge/documents` - List documents
+- `POST /knowledge/search` - Vector similarity search
 
-Upload tài liệu mới (hỗ trợ PDF, DOCX, TXT) để indexing.
+Xem [API_DOCS.md](./API_DOCS.md) để biết chi tiết về từng endpoint.
 
-**Body (Multipart):**
-- `file`: File binary
-- `tenantSlug`: ID của tenant
-- `category`: Phân loại tài liệu
-
-`GET /api/knowledge/documents/:id`
-
-Kiểm tra trạng thái indexing của tài liệu.
 
 ## 🧪 Testing
 
