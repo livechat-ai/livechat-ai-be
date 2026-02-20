@@ -21,6 +21,10 @@ export default () => ({
         apiKey: process.env.API_KEY || '',
     },
 
+    cors: {
+        allowedOrigins: process.env.ALLOWED_ORIGINS || 'http://localhost:3000',
+    },
+
     upload: {
         dir: process.env.UPLOAD_DIR || './uploads',
         maxFileSize: parseInt(process.env.MAX_FILE_SIZE || '10485760', 10),

@@ -17,10 +17,12 @@ async function bootstrap() {
     }),
   );
 
-  // CORS
+  // CORS - Restricting origins based on environment
+  const allowedOrigins = configService.get<string>('cors.allowedOrigins')?.split(',') || [];
   app.enableCors({
-    origin: '*', // Sẽ restrict trong production
+    origin: allowedOrigins.length > 0 ? allowedOrigins : ['http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
   });
 
   const port = configService.get<number>('port') || 3300;
